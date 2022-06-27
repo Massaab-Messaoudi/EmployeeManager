@@ -1,20 +1,17 @@
 package tech.getarrays.employeemanager.services;
 
-import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import tech.getarrays.employeemanager.model.Employee;
 import tech.getarrays.employeemanager.repo.EmployeeRepo;
 import tech.getarrays.employeemanager.exception.UserNotFoundException;
-
+@Service  // this anotation allow us to inject this class ass a service in other classes
 public class EmployeeService {
     private final EmployeeRepo employeeRepo;
     
-    @Autowired // this anotation allow us to inject this class ass a service in other classes
     public EmployeeService(EmployeeRepo employeeRepo) {
         this.employeeRepo = employeeRepo;
     }
