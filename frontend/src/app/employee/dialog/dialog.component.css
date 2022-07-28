@@ -1,0 +1,34 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+div.container{
+    margin: 0px 40px;
+    width: 750px;
+    height: 350px;
+}
+.fill-remaining-space{
+    flex :1 1 auto;
+}
+.normal-form{
+    margin: 10px;
+}
+
+.controles-container{
+    width: 100%;
+    padding: 5%;
+}
+
+/**
+all the elements will display in width 100% 
+in order to display elements in vertical order
+**/
+.controles-container > *{
+    width: 100%;
+}
+
+.add-botton-padding{
+    padding: 10px;
+}
+
+.buttons-row button{
+    margin: 10px;
+}
