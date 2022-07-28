@@ -38,20 +38,21 @@ export class EmployeeComponent implements OnInit {
       );
     
   }  
-  public searchEmployees(key: string): void {
+  public searchEmployees(key: string): void { 
     console.log("key = "+key);
     const results: Employee[] = [];
     for (const employee of this.employees) {
-      console.log(employee.name.toLowerCase().indexOf(key.toLowerCase()))
-      if (employee.name.toLowerCase().indexOf(key.toLowerCase()) !== -1
-      || employee.email.toLowerCase().indexOf(key.toLowerCase()) !== -1
-      || employee.phone.toLowerCase().indexOf(key.toLowerCase()) !== -1
-      || employee.jobTitle.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
+      // here we make our search by name/email/phone/job , we use the ? market to avoid the exception in the case one of these params is null
+      if (employee.name?.toLowerCase().indexOf(key.toLowerCase()) !== -1
+      || employee.email?.toLowerCase().indexOf(key.toLowerCase()) !== -1
+      || employee.phone?.toLowerCase().indexOf(key.toLowerCase()) !== -1
+      || employee.jobTitle?.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
         results.push(employee);
       }
     }
     this.employees = results;
-    if (results.length === 0 || !key) {
+    //results.length === 0 ||
+    if (!key) {
       this.getEmployees();
     }
   }
