@@ -9,6 +9,5 @@ import tech.getarrays.employeemanager.model.Employee;
  * <Employee,Long> Employee = the type of the repository and Long = the type of his primary key
  */
 public interface EmployeeRepo extends JpaRepository<Employee,Long> {  
-    void deleteEmployeeById(Long id);// spring will define implement automaticlly the methode , because of the 2 keyword (delete....Id)
     Optional<Employee> findEmployeeById(Long id); // spring will define implement automaticlly the methode , because of the 2 keyword (find....Id)  
 }

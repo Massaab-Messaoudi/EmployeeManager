@@ -35,12 +35,12 @@ public class EmployeeService {
         return employeeRepo.findEmployeeById(id)
         .orElseThrow(()->new UserNotFoundException("User by id "+id+" was not found"));
     }
-/*
-    public Optional<Employee> findEmployeeById(Long id){
-        return employeeRepo.findEmployeeById(id); // optional in the case if we send a request for inexisting employee
-   }
-   */
-    public void deleteEmployee(Long id){
-        employeeRepo.deleteEmployeeById(id);
-    }
+    
+	public void deleteEmployee(Long id) {
+		Employee employee=new Employee();
+		employee.setId(id);
+		this.employeeRepo.delete(employee);
+		
+	}
+
 }
