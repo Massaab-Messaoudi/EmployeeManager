@@ -1,11 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject ,OnInit } from '@angular/core';
 import { EmployeeService } from '../employee.service';
 import { Employee } from '../model/employee';
 import {DialogComponent} from '../dialog/dialog.component';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import { InteractionComponentsService } from '../interaction-components.service';
-
+import {MatSnackBar} from '@angular/material/snack-bar';
+import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
@@ -14,15 +15,20 @@ import { InteractionComponentsService } from '../interaction-components.service'
 
 export class EmployeeComponent implements OnInit {
   public employees: Employee[] = [];
+  notification_message :string="";
    
   constructor(private employeeservice:EmployeeService,
               private dialog: MatDialog,
-              private interactionService:InteractionComponentsService
+              private interactionService:InteractionComponentsService,
+              private _snackBar: MatSnackBar
               ) { }
 
   ngOnInit(): void {
     this.interactionService.resultMessage$.subscribe(
-      message=>console.log("res = "+message)
+      message=>{
+        this.notification_message=message;
+        this.openSnackBar() // show the notification bar
+      }
     )
     this.getEmployees();
   }
@@ -56,7 +62,6 @@ export class EmployeeComponent implements OnInit {
     
   }  
   public searchEmployees(key: string): void { 
-    console.log("key = "+key);
     const results: Employee[] = [];
     for (const employee of this.employees) {
       // here we make our search by name/email/phone/job , we use the ? market to avoid the exception in the case one of these params is null
@@ -68,16 +73,44 @@ export class EmployeeComponent implements OnInit {
       }
     }
     this.employees = results;
-    //results.length === 0 ||
     if (!key) {
       this.getEmployees();
     }
   }
-  print(employee:Employee):void{
-    console.log(employee.name)
+  openSnackBar() {
+    this._snackBar.openFromComponent(NotificationBarComponent, {
+      data:{
+        message:this.notification_message
+      },
+      duration: 3 * 1000, // 3 secends
+    });
   }
 }
 
-
-
+/**
+* this component is the components of
+* the notification bar that will be shown
+* when we receive a message
+ */
+@Component({
+  selector: 'snack-bar-component',
+  template:` 
+  <span class="notification-bar">
+  {{notificationMessage}} 
+  </span>
+  `,
+  styles: [
+    `
+    .notification-bar {
+      color: white;
+    }
+  `,
+  ],
+})
+export class NotificationBarComponent {
+  notificationMessage:string=""
+  constructor(@Inject(MAT_SNACK_BAR_DATA) public data:any,){
+    this.notificationMessage=this.data.message
+  }
+}
 
