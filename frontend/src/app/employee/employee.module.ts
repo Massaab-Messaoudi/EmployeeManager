@@ -14,6 +14,8 @@ import { DialogComponent } from './dialog/dialog.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSelectModule} from '@angular/material/select';
+import {MatIconModule} from '@angular/material/icon';
+
 @NgModule({
   declarations: [
     EmployeeComponent,
@@ -36,11 +38,12 @@ import {MatSelectModule} from '@angular/material/select';
     MatCardModule,
     MatToolbarModule,
     MatDialogModule,
-    MatSelectModule
+    MatSelectModule,
+    MatIconModule
     
   ],
   exports:[MatDialogModule],
-  providers: [EmployeeService],
+  providers: [EmployeeService,EmployeeComponent],
   //entryComponents:[DialogAnimationsComponent]
 })
 export class EmployeeModule { }

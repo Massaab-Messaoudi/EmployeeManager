@@ -2,12 +2,8 @@
     <nav class="navbar navbar-dark bg-dark">
       <div>
       <a class="navbar-brand" style="color:white;">Employees Manager</a>
-      <button class="btn btn-outline-success my-2 my-sm-0" (click)="openDialog('0ms', '0ms')">Add Employee</button>
+      <button class="btn btn-outline-success my-2 my-sm-0" (click)="openDialog('add')">Add Employee</button>
       </div>
-     <!-- <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search Employee" aria-label="Search">
-      </form>
-    -->
     <form class="form-inline my-2 my-lg-0">
         <input type="search" (ngModelChange)="searchEmployees(key.value)" #key="ngModel" ngModel
         name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search employees..." required>
@@ -33,8 +29,8 @@
                 </ul>
                 <div class="card-body">
                     <div class="float-right btn-group btn-group-sm">
-                        <a href="#" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit" style="color: white;"><i class="fa fa-pencil"></i> </a>
-                        <a href="#" class="btn btn-secondary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-times" style="color: white;"></i></a>
+                        <a class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit" style="color: white;" (click)="openDialog('edit',employee)"><i class="fa fa-pencil"></i> </a>
+                        <a class="btn btn-secondary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Delete" (click)="openDialog('delete',employee)"><i class="fa fa-times" style="color: white;"></i></a>
                     </div>
                 </div>
             </div>

@@ -25,10 +25,64 @@ in order to display elements in vertical order
     width: 100%;
 }
 
-.add-botton-padding{
+.botton-padding{
     padding: 10px;
 }
 
 .buttons-row button{
     margin: 10px;
+}
+
+
+
+/*.delete-dialog .mat-dialog-container {
+    border-radius: .25em .25em .4em .4em;
+    padding: 0px;
+}
+*/
+.delete-container{
+    margin: 5px 5px 15px 5px;
+    color: #8f9cb5;
+    display: flex;
+}
+
+.delete-dialog{
+    width: 390px;
+   /* height: 50%;
+    width: 50%;
+    background-color: #b6bece;
+    color: white;
+    border-radius: 0%;*/
+}
+
+
+.delete-dialog #close-icon{
+    margin-left: auto;
+    order: 2;
+    font-weight: bolder;
+}
+.delete-dialog #close-icon:hover{
+cursor: pointer;
+}
+
+.delete-dialog #no-button{
+height: 50px;
+width: 50%;
+background-color: #fc7169;
+color:white;
+border-radius: 0px;
+}
+
+.delete-dialog #yes-button{
+    height: 50px;
+    width: 50%;
+    background-color: #b6bece;
+    color:white;
+    border-radius: 0px;
+}
+
+.delete-dialog span.content-span{
+    padding: 35px 16px;
+    text-align: center;
+    font-size: 20px;
 }

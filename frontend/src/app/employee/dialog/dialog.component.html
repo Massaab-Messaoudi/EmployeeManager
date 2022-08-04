@@ -1,53 +1,109 @@
-<div class="container">
- <mat-toolbar color="primary">
-    <span class="fill-remaining-space"></span>
-    <span>Add New Employeer </span>
-    <span class="fill-remaining-space"></span>
- </mat-toolbar>
- <form [formGroup]="form" class="normal-form" (submit)="onSubmit()">
-    <mat-grid-list cols="2" rowHeight="300px">
-        <mat-grid-tile>
-            <div class="controles-container">
-                <mat-form-field>
-                    <input formControlName="name" placeholder="Full Name" matInput>
-                    <mat-error>This Field is mandatory</mat-error>
-                </mat-form-field>
-                <mat-form-field>
-                    <input formControlName="jobTitle" placeholder="Job title" matInput>
-                </mat-form-field>
-                <mat-form-field>
-                    <input formControlName="email" placeholder="Email" matInput>
-                    <mat-error *ngIf="form.controls['email'].errors?.email">Invalid email address</mat-error>
-                    <mat-error *ngIf="form.controls['email'].errors?.required">This Field is mandatory</mat-error>
-                </mat-form-field>
-                <mat-form-field>
-                    <input formControlName="phone" placeholder="Phone number" matInput >
-                    <mat-error *ngIf="form.controls['phone'].errors?.required">This Field is mandatory</mat-error>
-                    <mat-error *ngIf="form.controls['phone'].errors?.minlength">Minimum 8 charactors needed</mat-error>
-                </mat-form-field>
-                <mat-form-field>
-                    <input formControlName="imageUrl" placeholder="image Url" matInput>
-                </mat-form-field>
-
-            </div>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <div class="controles-container">
-                <div fxLayout ="column" fxLayoutAlign="space-around start" class="add-botton-padding">
-                    <div class="col-6">
-                    <a href=""><img src= {{form.controls.imageUrl.value}} alt="" class="img-fluid rounded-circle w-60"></a>
-                    </div>
-                    <span>Full name : {{form.controls.name.value}}</span>
-                    <span>Job : {{form.controls.jobTitle.value}}</span>
-                </div>
-                <div class="buttons-row">
-                    <button mat-raised-button mat-dialog-close color="primary" type="submit" [disabled]="form.invalid">Submit</button>
-                    <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
-                    <button mat-raised-button (click)="clearform()" color="accent">Clear</button>
+<div class="container" *ngIf="data.selectedform!='delete'">
+    <mat-toolbar color="primary">
+       <span class="fill-remaining-space"></span>
+       <span *ngIf="data.selectedform==='add'">Add New Employee </span>
+       <span *ngIf="data.selectedform==='edit'">Edit Employee</span>
+       <span class="fill-remaining-space"></span>
+    </mat-toolbar>
+    <!-- Add Employee Form-->
+    <form *ngIf="data.selectedform==='add'" [formGroup]="form" class="normal-form" (submit)="onSubmit()">
+       <mat-grid-list cols="2" rowHeight="300px">
+           <mat-grid-tile>
+               <div class="controles-container">
+                   <mat-form-field>
+                       <input formControlName="name" placeholder="Full Name" matInput>
+                       <mat-error>This Field is mandatory</mat-error>
+                   </mat-form-field>
+                   <mat-form-field>
+                       <input formControlName="jobTitle" placeholder="Job title" matInput>
+                   </mat-form-field>
+                   <mat-form-field>
+                       <input formControlName="email" placeholder="Email" matInput>
+                       <mat-error *ngIf="form.controls['email'].errors?.email">Invalid email address</mat-error>
+                       <mat-error *ngIf="form.controls['email'].errors?.required">This Field is mandatory</mat-error>
+                   </mat-form-field>
+                   <mat-form-field>
+                       <input formControlName="phone" placeholder="Phone number" matInput >
+                       <mat-error *ngIf="form.controls['phone'].errors?.required">This Field is mandatory</mat-error>
+                       <mat-error *ngIf="form.controls['phone'].errors?.minlength">Minimum 8 charactors needed</mat-error>
+                   </mat-form-field>
+                   <mat-form-field>
+                       <input formControlName="imageUrl" placeholder="image Url" matInput>
+                   </mat-form-field>
+   
                </div>
-            </div>
-        </mat-grid-tile>
-      </mat-grid-list>
- </form>
-
+           </mat-grid-tile>
+           <mat-grid-tile>
+               <div class="controles-container">
+                   <div fxLayout ="column" fxLayoutAlign="space-around start" class="botton-padding">
+                       <div class="col-6">
+                       <a href=""><img src= {{form.controls.imageUrl.value}} alt="" class="img-fluid rounded-circle w-60"></a>
+                       </div>
+                       <span>Full name : {{form.controls.name.value}}</span>
+                       <span>Job : {{form.controls.jobTitle.value}}</span>
+                   </div>
+                   <div class="buttons-row">
+                       <button mat-raised-button mat-dialog-close color="primary" type="submit" [disabled]="form.invalid">Add</button>
+                       <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
+                       <button mat-raised-button (click)="clearform()" color="accent">Clear</button>
+                  </div>
+               </div>
+           </mat-grid-tile>
+         </mat-grid-list>
+    </form>
+   <!-- Edit Employee Form-->
+    <form *ngIf="data.selectedform==='edit'" [formGroup]="form" class="normal-form" (submit)="onSubmit()">
+       <mat-grid-list cols="2" rowHeight="300px">
+           <mat-grid-tile>
+               <div class="controles-container">
+                   <mat-form-field>
+                       <input formControlName="name" placeholder="Full Name" matInput>
+                       <mat-error>This Field is mandatory</mat-error>
+                   </mat-form-field>
+                   <mat-form-field>
+                       <input formControlName="jobTitle" placeholder="Job title" matInput>
+                   </mat-form-field>
+                   <mat-form-field>
+                       <input formControlName="email" placeholder="Email" matInput>
+                       <mat-error *ngIf="form.controls['email'].errors?.email">Invalid email address</mat-error>
+                       <mat-error *ngIf="form.controls['email'].errors?.required">This Field is mandatory</mat-error>
+                   </mat-form-field>
+                   <mat-form-field>
+                       <input formControlName="phone" placeholder="Phone number" matInput >
+                       <mat-error *ngIf="form.controls['phone'].errors?.required">This Field is mandatory</mat-error>
+                       <mat-error *ngIf="form.controls['phone'].errors?.minlength">Minimum 8 charactors needed</mat-error>
+                   </mat-form-field>
+                   <mat-form-field>
+                       <input formControlName="imageUrl" placeholder="image Url" matInput>
+                   </mat-form-field>
+   
+               </div>
+           </mat-grid-tile>
+           <mat-grid-tile>
+               <div class="controles-container">
+                   <div fxLayout ="column" fxLayoutAlign="space-around start" class="botton-padding">
+                       <div class="col-6">
+                       <a href=""><img src= {{form.controls.imageUrl.value}} alt="" class="img-fluid rounded-circle w-60"></a>
+                       </div>
+                       <span>Full name : {{form.controls.name.value}}</span>
+                       <span>Job : {{form.controls.jobTitle.value}}</span>
+                   </div>
+                   <div class="buttons-row">
+                       <button mat-raised-button mat-dialog-close color="primary" type="submit" [disabled]="form.invalid">Save</button>
+                       <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
+                       <button mat-raised-button (click)="clearform()" color="accent">Clear</button>
+                  </div>
+               </div>
+           </mat-grid-tile>
+         </mat-grid-list>
+    </form>
+   </div>
+   
+<div class="delete-dialog" *ngIf="data.selectedform==='delete'">
+  <div class="delete-container">
+    <mat-icon id="close-icon" [mat-dialog-close]="false">close</mat-icon>
+    <span class="content-span full-width">Are you sure to delete this employee ?</span>
+  </div>
+  <button mat-flat-button id="no-button" [mat-dialog-close]="false">NO</button>
+  <button mat-flat-button id="yes-button" [mat-dialog-close]="true" (click)="onSubmit()">YES</button>
 </div>
