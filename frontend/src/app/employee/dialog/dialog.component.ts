@@ -2,6 +2,7 @@ import { Component, Inject, OnInit} from '@angular/core';
 import { EmployeeService } from '../employee.service';
 import { FormGroup,FormControl,Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { InteractionComponentsService } from '../interaction-components.service';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class DialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data:any,
     public employeeService:EmployeeService ,
+    private interactionService: InteractionComponentsService
     
     ) { }
   ngOnInit(): void {
@@ -37,7 +39,7 @@ export class DialogComponent implements OnInit {
         (
            res => 
            {
-              console.log("Employee added successfully" +res)
+            this.interactionService.publishMessage("Employee was successfully added")
            }
         );
         break;
@@ -47,16 +49,18 @@ export class DialogComponent implements OnInit {
         (
           res =>
            {
-            console.log("Employee edited successfully" +res)
+            this.interactionService.publishMessage("Employee was successfully modified")
            }
         );
         break;
         default:
           employee.id=this.data.selectedEmployee?.id
           this.employeeService.deleteEmployee(employee.id).subscribe(
-            res=>console.log(res)
+            res=>{
+              this.interactionService.publishMessage("Employee was successfully modified")
+            }
           )
-          console.log("Employee has been deleted")  
+       
     }
   }
 

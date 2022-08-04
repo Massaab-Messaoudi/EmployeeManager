@@ -4,6 +4,7 @@ import { EmployeeService } from '../employee.service';
 import { Employee } from '../model/employee';
 import {DialogComponent} from '../dialog/dialog.component';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { InteractionComponentsService } from '../interaction-components.service';
 
 @Component({
   selector: 'app-employee',
@@ -14,9 +15,15 @@ import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 export class EmployeeComponent implements OnInit {
   public employees: Employee[] = [];
    
-  constructor(private employeeservice:EmployeeService,private dialog: MatDialog) { }
+  constructor(private employeeservice:EmployeeService,
+              private dialog: MatDialog,
+              private interactionService:InteractionComponentsService
+              ) { }
 
   ngOnInit(): void {
+    this.interactionService.resultMessage$.subscribe(
+      message=>console.log("res = "+message)
+    )
     this.getEmployees();
   }
 
