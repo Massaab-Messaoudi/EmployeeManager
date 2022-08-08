@@ -29,8 +29,12 @@
                 </ul>
                 <div class="card-body">
                     <div class="float-right btn-group btn-group-sm">
-                        <a class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit" style="color: white;" (click)="openDialog('edit',employee)"><i class="fa fa-pencil"></i> </a>
-                        <a class="btn btn-secondary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Delete" (click)="openDialog('delete',employee)"><i class="fa fa-times" style="color: white;"></i></a>
+                        <button mat-mini-fab color="primary" (click)="openDialog('edit',employee)" >
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-mini-fab color="warn" (click)="openDialog('delete',employee)" >
+                            <mat-icon>delete_forever</mat-icon>
+                        </button>
                     </div>
                 </div>
             </div>
